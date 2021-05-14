@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body th:fragment="modals">
+<div class="modal fade" th:fragment="viewMMLFactSheet"  id="viewMMLFactSheetModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document" th:if="${factSheet != null}">
+        <div class="modal-content p-5">
+            <div class="modal-header">
+                <h3 class="modal-title mt-3 mb-3" id="viewMMLFactSheetModalLabel" th:text="${factSheet.getName() + ' fact sheet'}"></h3>
+                <button type="btn dropdown-toggle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-4">
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Description</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 th:text="${factSheet.getBriefDescription()}"></h6>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Objectives</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 style="white-space:pre-wrap;" th:text="${factSheet.getObjective()}"></h6>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="col-3">
+                        <div class="row justify-content-center minHeightRow">
+                            <h6 class="darkGreenText text-center mt-0" scope="row">Estimated planning time needed</h6>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section>
+                                <div th:classappend="${factSheet.getPlanningTime().equals('10-20h')} ? 'circle30_wrap30' :
+                                    (${factSheet.getPlanningTime().equals('10-40h')} ? 'circle45_wrap45' :
+                                    (${factSheet.getPlanningTime().equals('20-80h')} ? 'circle90_wrap90' : 'circle135_wrap135'))">
+                                    <div th:classappend="${factSheet.getPlanningTime().equals('10-20h')} ? 'circle30' :
+                                    (${factSheet.getPlanningTime().equals('10-40h')} ? 'circle45' :
+                                    (${factSheet.getPlanningTime().equals('20-80h')} ? 'circle90' : 'circle135'))">
+                                        <div th:classappend="${factSheet.getPlanningTime().equals('10-20h')} ? 'mask30 full30' :
+                                    (${factSheet.getPlanningTime().equals('10-40h')} ? 'mask45 full45' :
+                                    (${factSheet.getPlanningTime().equals('20-80h')} ? 'mask90 full90' : 'mask135 full135'))">
+                                            <div th:classappend="${factSheet.getPlanningTime().equals('10-20h')} ? 'fill30' :
+                                    (${factSheet.getPlanningTime().equals('10-40h')} ? 'fill45' :
+                                    (${factSheet.getPlanningTime().equals('20-80h')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${factSheet.getPlanningTime().equals('10-20h')} ? 'mask30 half30' :
+                                    (${factSheet.getPlanningTime().equals('10-40h')} ? 'mask45 half45' :
+                                    (${factSheet.getPlanningTime().equals('20-80h')} ? 'mask90 half90' : 'mask135 half135'))">
+                                            <div th:classappend="${factSheet.getPlanningTime().equals('10-20h')} ? 'fill30' :
+                                    (${factSheet.getPlanningTime().equals('10-40h')} ? 'fill45' :
+                                    (${factSheet.getPlanningTime().equals('20-80h')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${factSheet.getPlanningTime().equals('10-20h')} ? 'inside-circle30' :
+                                    (${factSheet.getPlanningTime().equals('10-40h')} ? 'inside-circle45' :
+                                    (${factSheet.getPlanningTime().equals('20-80h')} ? 'inside-circle90' : 'inside-circle135'))">
+                                            <i class="fas fa-business-time fa-3x circle-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row justify-content-center">
+                            <h6 th:text="${factSheet.getPlanningTime()}"></h6>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row justify-content-center minHeightRow">
+                            <h6 class="darkGreenText text-center mt-0" scope="row">Estimated budget needed</h6>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section>
+                                <div th:classappend="${factSheet.getBudget().contains('Low')} ? 'circle30_wrap30' :
+                                    (${factSheet.getBudget().contains('Medium')} ? 'circle90_wrap90' : 'circle135_wrap135')">
+                                    <div th:classappend="${factSheet.getBudget().contains('Low')} ? 'circle30' :
+                                    (${factSheet.getBudget().contains('Medium')} ? 'circle90' : 'circle135')">
+                                        <div th:classappend="${factSheet.getBudget().contains('Low')} ? 'mask30 full30' :
+                                    (${factSheet.getBudget().contains('Medium')} ? 'mask90 full90' : 'mask135 full135')">
+                                            <div th:classappend="${factSheet.getBudget().contains('Low')} ? 'fill30' :
+                                    (${factSheet.getBudget().contains('Medium')} ? 'fill90' : 'fill135')"></div>
+                                        </div>
+                                        <div th:classappend="${factSheet.getBudget().contains('Low')} ? 'mask30 half30' :
+                                    (${factSheet.getBudget().contains('Medium')} ? 'mask90 half90' : 'mask135 half135')">
+                                            <div th:classappend="${factSheet.getBudget().contains('Low')} ? 'fill30' :
+                                            (${factSheet.getBudget().contains('Medium')} ? 'fill90' : 'fill135')"></div>
+                                        </div>
+                                        <div th:classappend="${factSheet.getBudget().contains('Low')} ? 'inside-circle30' :
+                                    (${factSheet.getBudget().contains('Medium')} ? 'inside-circle90' : 'inside-circle135')">
+                                            <i class="fas fa-hand-holding-usd fa-3x circle-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row justify-content-center">
+                            <h6 class="text-center" th:text="${factSheet.getBudget()}"></h6>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row justify-content-center minHeightRow">
+                            <h6 class="darkGreenText text-center mt-0" scope="row">Time estimated for implementation</h6>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section>
+                                <div th:classappend="${factSheet.getTimeEstimated().equals('<2h')} ? 'circle30_wrap30' :
+                                    (${factSheet.getTimeEstimated().equals('>2h')} ? 'circle45_wrap45' :
+                                    (${factSheet.getTimeEstimated().equals('>4h')} ? 'circle90_wrap90' : 'circle135_wrap135'))">
+                                    <div th:classappend="${factSheet.getTimeEstimated().equals('<2h')} ? 'circle30' :
+                                    (${factSheet.getTimeEstimated().equals('>2h')} ? 'circle45' :
+                                    (${factSheet.getTimeEstimated().equals('>4h')} ? 'circle90' : 'circle135'))">
+                                        <div th:classappend="${factSheet.getTimeEstimated().equals('<2h')} ? 'mask30 full30' :
+                                    (${factSheet.getTimeEstimated().equals('>2h')} ? 'mask45 full45' :
+                                    (${factSheet.getTimeEstimated().equals('>4h')} ? 'mask90 full90' : 'mask135 full135'))">
+                                            <div th:classappend="${factSheet.getTimeEstimated().equals('<2h')} ? 'fill30' :
+                                    (${factSheet.getTimeEstimated().equals('>2h')} ? 'fill45' :
+                                    (${factSheet.getTimeEstimated().equals('>4h')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${factSheet.getTimeEstimated().equals('<2h')} ? 'mask30 half30' :
+                                    (${factSheet.getTimeEstimated().equals('>2h')} ? 'mask45 half45' :
+                                    (${factSheet.getTimeEstimated().equals('>4h')} ? 'mask90 half90' : 'mask135 half135'))">
+                                            <div th:classappend="${factSheet.getTimeEstimated().equals('<2h')} ? 'fill30' :
+                                    (${factSheet.getTimeEstimated().equals('>2h')} ? 'fill45' :
+                                    (${factSheet.getTimeEstimated().equals('>4h')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${factSheet.getTimeEstimated().equals('<2h')} ? 'inside-circle30' :
+                                    (${factSheet.getTimeEstimated().equals('>2h')} ? 'inside-circle45' :
+                                    (${factSheet.getTimeEstimated().equals('>4h')} ? 'inside-circle90' : 'inside-circle135'))">
+                                            <i class="fas fa-user-clock fa-3x circle-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row justify-content-center">
+                            <h6 th:text="${factSheet.getTimeEstimated()}"></h6>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row justify-content-center minHeightRow">
+                            <h6 class="darkGreenText text-center mt-0" scope="row">Facilitation skills</h6>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section>
+                                <div th:classappend="${factSheet.getFacilitatorSkills().contains('Low')} ? 'circle30_wrap30' :
+                                    (${factSheet.getFacilitatorSkills().contains('Medium') or factSheet.getFacilitatorSkills().contains('Moderate')} ? 'circle90_wrap90' : 'circle135_wrap135')">
+                                    <div th:classappend="${factSheet.getFacilitatorSkills().contains('Low')} ? 'circle30' :
+                                    (${factSheet.getFacilitatorSkills().contains('Medium') or factSheet.getFacilitatorSkills().contains('Moderate')} ? 'circle90' : 'circle135')">
+                                        <div th:classappend="${factSheet.getFacilitatorSkills().contains('Low')} ? 'mask30 full30' :
+                                    (${factSheet.getFacilitatorSkills().contains('Medium') or factSheet.getFacilitatorSkills().contains('Moderate')} ? 'mask90 full90' : 'mask135 full135')">
+                                            <div th:classappend="${factSheet.getFacilitatorSkills().contains('Low')} ? 'fill30' :
+                                    (${factSheet.getFacilitatorSkills().contains('Medium') or factSheet.getFacilitatorSkills().contains('Moderate')} ? 'fill90' : 'fill135')"></div>
+                                        </div>
+                                        <div th:classappend="${factSheet.getFacilitatorSkills().contains('Low')} ? 'mask30 half30' :
+                                    (${factSheet.getFacilitatorSkills().contains('Medium') or factSheet.getFacilitatorSkills().contains('Moderate')} ? 'mask90 half90' : 'mask135 half135')">
+                                            <div th:classappend="${factSheet.getFacilitatorSkills().contains('Low')} ? 'fill30' :
+                                            (${factSheet.getFacilitatorSkills().contains('Medium') or factSheet.getFacilitatorSkills().contains('Moderate')} ? 'fill90' : 'fill135')"></div>
+                                        </div>
+                                        <div th:classappend="${factSheet.getFacilitatorSkills().contains('Low')} ? 'inside-circle30' :
+                                    (${factSheet.getFacilitatorSkills().contains('Medium') or factSheet.getFacilitatorSkills().contains('Moderate')} ? 'inside-circle90' : 'inside-circle135')">
+                                            <i class="fas fa-chalkboard-teacher fa-3x circle-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row justify-content-center">
+                            <h6 class="text-center" th:text="${factSheet.getFacilitatorSkills()}"></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end mt-5 pt-5">
+                    <button style="margin-bottom: 1rem;" class="btn share-open viewMoreFactSheet">VIEW MORE</button>
+                </div>
+                <div class="row d-none viewMoreFactSheetRow">
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Methodology</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 style="white-space: pre-wrap;" th:text="${factSheet.getMethodology()}"></h6>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Target audience</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 th:text="${factSheet.getTargetAudience()}"></h6>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Number of audience</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 th:text="${factSheet.getNumberOfAudience()}"></h6>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Group composition</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 th:text="${factSheet.getGroupComposition()}"></h6>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Level of knowledge required and possible challenges</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 th:text="${factSheet.getLevelOfKnowledgeRequired()}"></h6>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Example</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 class="exampleLinkify" th:text="${factSheet.getExample()}"></h6>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Relevant sources</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 class="relevantSourcesLinkify" th:text="${factSheet.getRelevantSources()}"></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="chooseMMLFactSheetModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content p-5">
+            <div class="modal-header">
+                <!-- <h3 class="modal-title mt-3 mb-3" id="chooseMMLFactSheetModalLabel" th:text="${factSheet.getName() + ' fact sheet'}"></h3> -->
+                <button type="btn dropdown-toggle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-4">
+                    <h6 class="mmlChoiceText mt-3"></h6>
+                </div>
+                <div class="row mb-4 justify-content-end">
+                    <button class="btn share-open btn-lg mmlChoiceConfirmed mr-3">YES</button>
+                    <button class="btn share-open btn-lg" data-dismiss="modal" aria-label="Close">NO</button>
+                </div>
+                <div class="row mb-4">
+                    <h6 class="mt-3">After confirming your choice, we are going to select the suitable activities for the event</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/brands.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/popper.js/1.15.0/dist/umd/popper.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+    <link th:href="@{/css/rating/css/star-rating.css}" media="all" rel="stylesheet" type="text/css"/>
+    <script th:href="@{/css/rating/js/star-rating.js}" type="text/javascript"></script>
+    <link type="text/css" th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 horizontalCard">
+            <div class="row justify-content-center">
+                <div class="card col-12 p-0 text-center">
+                    <div class="eventCard-title p-3">
+                        <h4>Edit MML/co-creation format ratings</h4>
+                    </div>
+                </div>
+            </div>
+            <!--Visualizzazione Matrice A-->
+            <div class="row mt-3">
+                <div class="col-12">
+                    <table class="table table-borderless table-responsive">
+                        <thead> <!--Intestazione tabella matrice a-->
+                        <tr class="d-flex">
+                            <th class="col greenColor"><span> Event Parameters </span></th>
+                            <th class="col blue"><span>MML Format</span></th>
+                            <th class="col blue" th:each="mml: ${listMML}">
+                                <span th:text="${(mml)}"> </span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--Generazione contenuto GroupSIze-->
+                        <tr class="d-flex" th:block th:each="key, iter: ${resultsViewGroupSize.keySet()}">
+
+                            <th:block th:switch="${iter.index}">
+                                <td rowspan="3" class="col greenColor" th:case="0">Group Size</td>
+                                <td  class="col greenColor" th:case="*">&nbsp</td>
+                            </th:block>
+
+                            <td class="col" >
+                                <span class="greenColor" th:text="${(key)}"> </span>
+                            </td>
+                            <td class="col" th:each="res: ${resultsViewGroupSize.get(key)}">
+                                <span th:classappend="${res.getMediumScore()==1.0} ? red : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==2.0} ? yellow : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==3.0} ? green : grey" class="fa fa-circle"></span>
+                            </td>
+                        </tr>
+                        <!--Generazione contenuto BiovoicesChallangeCluster-->
+                        <tr class="d-flex" th:block th:each="key, iter: ${resultsViewBiovoicesChallangeCluster.keySet()}">
+
+                            <th:block th:switch="${iter.index}">
+                                <td rowspan="5" class="col greenColor" th:case="0">Biovoices Challange Cluster</td>
+                                <td  class="col greenColor" th:case="*">&nbsp</td>
+                            </th:block>
+
+                            <td class="col" >
+                                <span class="greenColor" th:text="${(key)}"> </span>
+                            </td>
+                            <td class="col" th:each="res: ${resultsViewBiovoicesChallangeCluster.get(key)}">
+                                <span th:classappend="${res.getMediumScore()==1.0} ? red : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==2.0} ? yellow : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==3.0} ? green : grey" class="fa fa-circle"></span>
+                            </td>
+                        </tr>
+                        <!--Generazione contenuto ViewGroupComposition-->
+                        <tr class="d-flex" th:block th:each="key, iter: ${resultsViewGroupComposition.keySet()}">
+
+                            <th:block th:switch="${iter.index}">
+                                <td  class="col greenColor" th:case="0">Group Composition</td>
+                                <td  class="col greenColor" th:case="*">&nbsp</td>
+                            </th:block>
+
+                            <td class="col" >
+                                <span class="greenColor" th:text="${(key)}"> </span>
+                            </td>
+                            <td class="col" th:each="res: ${resultsViewGroupComposition.get(key)}">
+                                <span th:classappend="${res.getMediumScore()==1.0} ? red : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==2.0} ? yellow : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==3.0} ? green : grey" class="fa fa-circle"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--Edit Matrice A-->
+
+            <div class="row mt-3">
+                <div class="col-5 mt-4">
+                    <h5 class="greenColor">Edit a value</h5>
+                </div>
+
+            </div>
+
+            <div class="row m-3">
+                <div class="col-4">
+                    <span th:text="'Select value and MML format to edit the score'"/>
+                    <select class="valuesASelect customSelect selectButton my-2">
+                        <option>Select a value</option>
+                        <th:block th:each="v : ${valuesA}">
+                            <option th:text="${v}"></option>
+                        </th:block>
+                    </select>
+                    <select class="valuesASelect customSelect selectButton">
+                        <option>Select a MML</option>
+                        <th:block  th:each="mml: ${listMML}">
+                            <option th:text="${mml}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
+
+                <div class="col-8">
+                    <div th:fragment="resultsFragment" id="resultsFragment" >
+
+                        <div class="row">
+                            <th:block th:if="${resultEdit.getMml() != null}">
+
+                                <div class="col-8">
+                                    <span th:text="'Choose a new value for: '+${resultEdit.getMml()} + ' - ' + ${resultEdit.getyAxis() + ' '}"/>
+                                    <div class="d-flex">
+                                        <select class="scoreSelectA customSelect selectButtonTextBlack mt-2 mr-2">
+                                            <option th:selected="${resultEdit.getMediumScore()==1.0} ? selected"style ="color:red;">
+                                                RED
+                                            </option>
+                                            <option th:selected="${resultEdit.getMediumScore()==2.0} ? selected"style ="color:#fde16d;">
+                                                YELLOW
+                                            </option>
+                                            <option th:selected="${resultEdit.getMediumScore()==3.0} ? selected"style ="color:green;">
+                                                GREEN
+                                            </option>
+                                        </select>
+                                        <button class="scoreEditAButton btn-sm selectButton  mt-2" type="button" th:id="${resultEdit.getMml()} + '_' + ${resultEdit.getyAxis()}">
+                                            SAVE CHANGE
+                                        </button>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 horizontalCard">
+            <div class="row justify-content-center ">
+                <div class="card col-12 p-0 text-center">
+                    <div class="eventCard-title p-3">
+                        <h4>Edit Exercises/activities ratings</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-end my-4">
+                <span class="fa fa-circle orange"> Setting the scene</span>
+                <span class="fa fa-circle purple ml-3"> Working Phase</span>
+                <span class="fa fa-circle light-blue ml-3 mr-3"> Wrap-up</span>
+            </div>
+            <!--Visualizzazione Matrice B-->
+            <div class="row mt-3">
+                <th class="col-12">
+                    <table class="table table-borderless table-responsive">
+                        <thead> <!--Intestazione tabella matrice b-->
+                        <tr class="d-flex">
+                            <th class="col greenColor"><span> Event Parameters </span></th>
+                            <th class="col blue"><span>Exercises / Activities</span></th>
+                            <th:block th:each="act: ${mapActivityForThead.keySet()}">
+                            <th class="col blue" th:each="mml : ${mapActivityForThead.get(act)}">
+                                <span th:classappend="${act.equals('Setting the scene')} ? 'orange' : (${act.equals('Working Phase')} ? 'purple' : 'light-blue')" th:text="${(mml)}"> </span>
+                            </th>
+                            </th:block>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--Generazione contenuto Goal-->
+                        <tr class="d-flex" th:block th:each="key, iter: ${resultsViewBGoal.keySet()}">
+
+                            <th:block th:switch="${iter.index}">
+                                <td rowspan="3" class="col greenColor" th:case="0">Goal</td>
+                                <td  class="col greenColor" th:case="*">&nbsp</td>
+                            </th:block>
+
+                            <td class="col" >
+                                <span class="greenColor" th:text="${(key)}"> </span>
+                            </td>
+                            <td class="col" th:each="res: ${resultsViewBGoal.get(key)}">
+                                <span th:classappend="${res.getMediumScore()==1.0} ? red : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==2.0} ? yellow : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==3.0} ? green : grey" class="fa fa-circle"></span>
+                            </td>
+                        </tr>
+                        <!--Generazione contenuto GroupSize-->
+                        <tr class="d-flex" th:block th:each="key, iter: ${resultsViewBGroupSize.keySet()}">
+
+                            <th:block th:switch="${iter.index}">
+                                <td rowspan="5" class="col greenColor" th:case="0">Group size</td>
+                                <td  class="col greenColor" th:case="*">&nbsp</td>
+                            </th:block>
+
+                            <td class="col" >
+                                <span class="greenColor" th:text="${(key)}"> </span>
+                            </td>
+                            <td class="col" th:each="res: ${resultsViewBGroupSize.get(key)}">
+                                <span th:classappend="${res.getMediumScore()==1.0} ? red : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==2.0} ? yellow : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==3.0} ? green : grey" class="fa fa-circle"></span>
+                            </td>
+                        </tr>
+                        <!--Generazione contenuto GroupComposition-->
+                        <tr class="d-flex" th:block th:each="key, iter: ${resultsViewBGroupComposition.keySet()}">
+
+                            <th:block th:switch="${iter.index}">
+                                <td  class="col greenColor" th:case="0">Group Composition</td>
+                                <td  class="col greenColor" th:case="*">&nbsp</td>
+                            </th:block>
+
+                            <td class="col" >
+                                <span class="greenColor" th:text="${(key)}"> </span>
+                            </td>
+                            <td class="col" th:each="res: ${resultsViewBGroupComposition.get(key)}">
+                                <span th:classappend="${res.getMediumScore()==1.0} ? red : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==2.0} ? yellow : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==3.0} ? green : grey" class="fa fa-circle"></span>
+                            </td>
+                        </tr>
+                        <!--Generazione contenuto SessionFormat-->
+                        <tr class="d-flex" th:block th:each="key, iter: ${resultsViewBSessionFormat.keySet()}">
+
+                            <th:block th:switch="${iter.index}">
+                                <td  class="col greenColor" th:case="0">Session Format</td>
+                                <td  class="col greenColor" th:case="*">&nbsp</td>
+                            </th:block>
+
+                            <td class="col" >
+                                <span class="greenColor" th:text="${(key)}"> </span>
+                            </td>
+                            <td class="col" th:each="res: ${resultsViewBSessionFormat.get(key)}">
+                                <span th:classappend="${res.getMediumScore()==1.0} ? red : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==2.0} ? yellow : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==3.0} ? green : grey" class="fa fa-circle"></span>
+                            </td>
+                        </tr>
+                        <!--Generazione contenuto ParticipantsLevel-->
+                        <tr class="d-flex" th:block th:each="key, iter: ${resultsViewBParticipantsLevel.keySet()}">
+
+                            <th:block th:switch="${iter.index}">
+                                <td  class="col greenColor" th:case="0"P>Participants' experience level</td>
+                                <td  class="col greenColor" th:case="*">&nbsp</td>
+                            </th:block>
+
+                            <td class="col" >
+                                <span class="greenColor" th:text="${(key)}"> </span>
+                            </td>
+                            <td class="col" th:each="res: ${resultsViewBParticipantsLevel.get(key)}">
+                                <span th:classappend="${res.getMediumScore()==1.0} ? red : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==2.0} ? yellow : grey" class="fa fa-circle"></span>
+                                <span th:classappend="${res.getMediumScore()==3.0} ? green : grey" class="fa fa-circle"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+
+        <!--Edit Matrice A-->
+
+        <div class="col-12 mt-3">
+            <div class="col-5 mt-4">
+                <h5 class="greenColor">Edit a value</h5>
+            </div>
+
+        </div>
+
+        <div class="col-12 m-3">
+            <div class="col-4">
+                <span th:text="'Select parameter and MML format to edit the score'"/>
+                <select class="valuesBSelect customSelect selectButton my-2">
+                    <option>Select a parameter</option>
+                    <th:block th:each="v : ${valuesB}">
+                        <option th:text="${v}"></option>
+                    </th:block>
+                </select>
+                <select class="valuesBSelect customSelect selectButton">
+                    <option>Select an activity</option>
+                    <th:block  th:each="act: ${listActivity}">
+                        <option th:text="${act}"></option>
+                    </th:block>
+                </select>
+            </div>
+
+
+            <div class="col-8">
+                <div th:fragment="resultsBFragment" id="resultsBFragment" >
+
+                    <div class="row">
+                        <th:block th:if="${resultBEdit.getyAxis() != null}">
+
+                            <div class="col-8">
+                                <span th:text="'Choose a new value for: '+${resultBEdit.getMml()} + ' - ' + ${resultBEdit.getyAxis() + ' '}"/>
+                                <div class="d-flex">
+                                    <select class="scoreSelectB customSelect selectButtonTextBlack mt-2 mr-2">
+                                        <option th:selected="${resultBEdit.getMediumScore()==1.0} ? selected"style ="color:red;">
+                                            RED
+                                        </option>
+                                        <option th:selected="${resultBEdit.getMediumScore()==2.0} ? selected"style ="color:#fde16d;">
+                                            YELLOW
+                                        </option>
+                                        <option th:selected="${resultBEdit.getMediumScore()==3.0} ? selected"style ="color:green;">
+                                            GREEN
+                                        </option>
+                                    </select>
+                                    <button class="scoreEditBButton btn-sm selectButton  mt-2" type="button" th:id="${resultBEdit.getMml()} + '_' + ${resultBEdit.getyAxis()} + '_' +${resultBEdit.getFormatPhase()}">
+                                        SAVE CHANGE
+                                    </button>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" th:src="@{/css/admin.js}"></script>
+<script>
+</script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><link rel="icon" th:href="@{/img/logoTool.png}"/>
+    <title>Customize agenda working phase</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/brands.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/popper.js/1.15.0/dist/umd/popper.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js/}"></script>
+    <script th:src="@{/linkify/linkify.min.js}"></script>
+    <script th:src="@{/linkify/linkify-jquery.min.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-hashtag.amd.min.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-mention.amd.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-ticket.amd.js}"></script>
+    <script th:src="@{/linkify/linkify-polyfill.min.js}"></script>
+    <link th:href="@{/css/rating/css/star-rating.css}" media="all" rel="stylesheet" type="text/css"/>
+    <script th:href="@{/css/rating/js/star-rating.js}" type="text/javascript"></script>
+    <link type="text/css" th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/scss_compiled/questionnaire.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+
+<div th:include="navbar :: header">&nbsp;</div>
+<div class="parallax-container ">
+    <div></div>
+    <div></div>
+</div>
+
+<main role="main">
+    <div th:include="/modals/activitiesModal :: modals">&nbsp;</div>
+    <div class="container-fluid platform__leaves py-5">
+        <div class="row">
+            <div class="col-2">
+                <h3 class="tool-steps-title text-right" >Choices you made</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">BIOVOICES Challenge Cluster</h5>
+                        <h5 th:text="${biovoicesChallengeCluster}"></h5>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary">
+                        <h5 class="darkGreenText">Group composition: </h5>
+                        <h5 th:each="groupComposition : ${groupCompositionViewGlobal}" th:text="${groupComposition}"></h5>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">Group size </h5>
+                        <h5 th:text="${groupSizeGlobal}"></h5>
+                    </li>
+                </ul>
+                <ul class="list-group mt-2">
+                    <li class="list-group-item list-group-item-green">
+                        <h5>MML and knowledge exchange events </h5>
+                        <h5 th:text="${mmlNameGlobal}"></h5>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">Goal </h5>
+                        <h5 th:text="${biovoicesGoalGlobalSettingScene}"></h5>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary">
+                        <h5 class="darkGreenText">Participants' experience level </h5>
+                        <h5 th:text="${biovoicesParticipantExperienceLevelGlobalSettingScene}"></h5>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">Session format </h5>
+                        <h5 th:text="${biovoicesSessionFormatGlobalSettingScene}"></h5>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-8 intro-wrapper">
+                <h2 class="my-5 text-center">Agenda customization</h2>
+                <div class="row justify-content-center results-wrapper">
+                    <div class="col-xl-7 col-lg-12 whiteBackground">
+                        <div class="row paddingInherit">
+                            <h2 class="whiteBackgroundHeading">Agenda</h2>
+                        </div>
+                        <div class="row paddingInherit">
+                            <div class="table-responsive">
+                                <table class="table" id="customizeAgendaTable">
+                                    <thead class="darkGreenTHead">
+                                    <tr>
+                                        <th><h5>Agenda item</h5></th>
+                                        <th><h5>Description</h5></th>
+                                        <th><h5>Timeline</h5></th>
+                                        <th><h5>Suitable activities</h5></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="greyRow" >
+                                        <td colspan="5" class="text-center"><h5>Phase 1: Setting the scene</h5></td>
+                                    </tr>
+                                    <th:block th:if="${chosenOnlyActivitiesSessionFormatGlobal != null}">
+                                        <tr class="greyRow" th:each="activities : ${chosenOnlyActivitiesSessionFormatGlobal}">
+                                            <th:block th:if="${activities.length == 4}">
+                                                <td class="agendaItemName"><h5 th:text="${activities[0]}"></h5></td>
+                                                <td class="agendaItemDescription w-50"><h5 th:text="${activities[1]}"></h5></td>
+                                                <td class="agendaItemTime" contenteditable="false"><h5 th:text="${activities[2]}"></h5></td>
+                                                <td class="" droppable="false"><h5 class="p-2" th:text="${activities[3]}"></h5>
+                                                </td>
+                                                <td class="deleteIcon"></td>
+                                            </th:block>
+                                            <th:block th:if="${activities.length == 2  and !activities[0].equals('Coffee break') and !activities[0].equals('Lunch break')}">
+                                                <td class="agendaItemName"></td>
+                                                <td class="agendaItemDescription w-50"></td>
+                                                <td class="agendaItemTime" contenteditable="false"><h5 th:text="${activities[0]}"></h5></td>
+                                                <td class="" droppable="false"><h5 class="p-2" th:text="${activities[1]}"></h5></td>
+                                                <td class="deleteIcon"></td>
+                                            </th:block>
+                                            <th:block th:if="${activities.length == 2  and (activities[0].equals('Coffee break') or activities[0].equals('Lunch break'))}">
+                                                <td class="agendaItemName"><h5 th:text="${activities[0]}"></h5></td>
+                                                <td class="agendaItemDescription w-50"></td>
+                                                <td class="agendaItemTime" contenteditable="false"><h5 class="p-2" th:text="${activities[1]}"></h5></td>
+                                                <td class="" droppable="false"></td>
+                                                <td class="deleteIcon"></td>
+                                            </th:block>
+                                        </tr>
+                                    </th:block>
+                                    <tr class="greyRow" >
+                                        <td colspan="5" class="text-center"><h5>Phase 2: Working phase</h5></td>
+                                    </tr>
+                                    <th:block th:if="${chosenOnlyActivitiesWorkingPhaseGlobal == null}">
+                                        <tr class="" th:each="agendaItemWorkingPhase : ${agenda.getWorkingPhaseAgendaItems()}">
+                                            <td class="agendaItemName" style="color: #1b964c"><h5 th:text="${agendaItemWorkingPhase.getName()}"></h5></td>
+                                            <td class="agendaItemDescription w-50" style="color: #1b964c"><h5 th:text="${agendaItemWorkingPhase.getDescription()}"></h5></td>
+                                            <td class="agendaItemTime" contenteditable="true"><h5>Insert time</h5></td>
+                                            <td class="droppable" droppable="true"><h5 style="border: 2px solid #2b964e" class="p-2">Drag an activity</h5></td>
+                                            <td class="deleteIcon"></td>
+                                        </tr>
+                                    </th:block>
+                                    <th:block th:if="${chosenOnlyActivitiesWorkingPhaseGlobal != null}">
+                                        <th:block th:each="activities : ${chosenOnlyActivitiesWorkingPhaseGlobal}">
+                                            <tr class="saved" th:if="${activities.length == 4}">
+                                                <td class="agendaItemName" style="color: #1b964c"><h5 th:text="${activities[0]}"></h5></td>
+                                                <td class="agendaItemDescription w-50" style="color: #1b964c"><h5 th:text="${activities[1]}"></h5></td>
+                                                <td class="agendaItemTime" contenteditable="true"><h5 th:text="${activities[2]}"></h5></td>
+                                                <td class="droppable assigned" droppable="true"><h5 class="p-2" th:classappend="${activities[3].equals('Drag an activity')} ? 'droppableBorder' : ''" th:text="${activities[3]}"></h5>
+                                                </td>
+                                                <td class="deleteIcon"></td>
+                                            </tr>
+                                            <tr class="saved" th:if="${activities.length == 2 and !activities[0].equals('Coffee break') and !activities[0].equals('Lunch break')}">
+                                                <td class="agendaItemName" style="color: #1b964c"></td>
+                                                <td class="agendaItemDescription w-50" style="color: #1b964c"></td>
+                                                <td class="agendaItemTime" contenteditable="true"><h5 th:text="${activities[0]}"></h5></td>
+                                                <td class="droppable assigned" droppable="true"><h5 th:classappend="${activities[1].equals('Drag an activity')} ? 'droppableBorder' : ''" class="p-2" th:text="${activities[1]}"></h5></td>
+                                                <td class="deleteIcon"><i style="color: #7f7f7f" class="fas fa-times fa-2x deleteRow"/></td>
+                                            </tr>
+                                            <th:block th:if="${activities.length == 2 and (activities[0].equals('Coffee break') or activities[0].equals('Lunch break'))}">
+                                                <tr class="saved" style="background-color: rgb(43, 150, 78); opacity: 0.5; color: #FFFFFF">
+                                                    <td class="agendaItemName" style="color: #1b964c"><h5 th:text="${activities[0]}"></h5></td>
+                                                    <td class="agendaItemDescription w-50" style="color: #1b964c"></td>
+                                                    <td class="agendaItemTime" contenteditable="true"><h5 class="p-2" th:text="${activities[1]}"></h5></td>
+                                                    <td class="droppable assigned" droppable="true"></td>
+                                                    <td class="deleteIcon"><i style="color: #7f7f7f" class="fas fa-times fa-2x deleteRow"/></td>
+                                                </tr>
+                                            </th:block>
+                                        </th:block>
+                                    </th:block>
+                                    <tr class="greyRow">
+                                        <td colspan="5" class="text-center"><h5>Phase 3: Wrap-up</h5></td>
+                                    </tr>
+                                    <tr class="greyRow" th:each="agendaItemWrapUp : ${agenda.getWrapUpAgendaItems()}">
+                                        <td class="agendaItemName"><h5 th:text="${agendaItemWrapUp.getName()}"></h5></td>
+                                        <td class="agendaItemDescription w-50"><h5 th:text="${agendaItemWrapUp.getDescription()}"></h5></td>
+                                        <td class="agendaItemTime"></td>
+                                        <td>
+                                        </td>
+                                        <td class="deleteIcon"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mb-3 mb-xl-0 mt-5 paddingInherit">
+                            <button class="btn share-open btn-md imDoneWithAgendaCustomizationWorkingPhaseButton">I'M DONE WITH PHASE 2 CUSTOMIZATION</button>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 ml-xl-3 mt-xl-0 mt-2 whiteBackground">
+                        <div class="row">
+                            <div class="col-12 paddingInherit">
+                                <h2 class="whiteBackgroundHeading">Activities</h2>
+                            </div>
+                            <div class="col-12 suggestedActivities p-0">
+                                <h3 class="demo__heading">The best activities suggested are</h3>
+                                <h5 class="text-center">Please drag the activity in the agenda</h5>
+                                <div class="row justify-content-center mb-3">
+                                    <div class="col-12">
+                                        <div class="text-center">
+                                            <img class="img-fluid" th:src="@{/img/dragAndDropExample.png}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background-color: #d6d8db" class="whiteBackgroundElem agendaPhaseHeading">
+                                    <p>Working phase</p>
+                                </div>
+                                <th:block th:each="result, iter : ${workingResultsB}">
+                                    <div class="whiteBackgroundElem" th:classappend="${iter.index > 2} ? 'd-none' : 'top3Result'">
+                                        <div class="row mt-2">
+                                            <div class="col-1 align-self-center p-0">
+                                                <div class="row justify-content-center my-1">
+                                                    <i th:classappend="${result.getMediumScore() < 1.5} ? red : grey" class="fa fa-circle fa-xs"></i>
+                                                </div>
+                                                <div class="row justify-content-center my-1">
+                                                    <i th:classappend="${result.getMediumScore()>=1.5 && result.getMediumScore() < 2.5} ? yellow : grey" class="fa fa-circle fa-xs"></i>
+                                                </div>
+                                                <div class="row justify-content-center my-1">
+                                                    <i th:classappend="${result.getMediumScore()>=2.5} ? green : grey" class="fa fa-circle fa-xs"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-7 align-self-center p-0">
+                                                <h5 class="activityToShow draggable mb-0" th:text="${result.getyAxis()}"></h5> <h5 class="mt-0" style="color: lightgray;" th:text="${result.getEstimatedPlanningTime()}"></h5>
+                                            </div>
+                                            <div class="col-2 align-self-center p-0">
+                                                <p class="mediumScore d-none" th:text="${result.getMediumScore()}"></p>
+                                            </div>
+                                            <div class="col-xl-3 col-2 p-0 d-flex align-items-center">
+                                                <div>
+                                                    <div class="row">
+                                                        <button th:id="${result.getyAxis()}" style="margin-bottom: 1rem; font-size: 0.9rem;" class="btn share-open viewActivityFactSheet">FACTSHEET</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <div style="background-color: #d6d8db" class="whiteBackgroundElem agendaPhaseHeading">
+                                    <p>Extra activities</p>
+                                </div>
+                                <div class="whiteBackgroundElem">
+                                    <div class="row mt-5">
+                                        <div class="col-7 align-self-center">
+                                            <h5 class="draggable extraActivity">Coffee break</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="whiteBackgroundElem">
+                                    <div class="row mt-5">
+                                        <div class="col-7 align-self-center">
+                                            <h5 class="draggable extraActivity">Lunch break</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center m-0">
+                                    <button style="margin-bottom: 1rem;" class="btn share-open viewAllActivitiesSuggestionsButton">VIEW ALL SUGGESTIONS</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-5 mb-3">
+                    <a class="btn share-open btn-lg" th:href="@{/customizeAgendaSettingTheScene}">BACK</a>
+                </div>
+            </div>
+            <div class="col-2">
+                <h3 class="tool-steps-title" >Tool steps</h3>
+                <ul class="list-group">
+                    <li class="list-group-item"><h5>1. Select a suitable MML format</h5></li>
+                    <li class="list-group-item"><h5>2. Select the right activities</h5></li>
+                    <li class="list-group-item list-group-item-success"><h5>3. Customize the agenda</h5></li>
+                    <li class="list-group-item"><h5>4. Download supporting documents</h5></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript" th:src="@{/css/scripts.js}"></script>
+<script>
+</script>
+</body>
+</html>

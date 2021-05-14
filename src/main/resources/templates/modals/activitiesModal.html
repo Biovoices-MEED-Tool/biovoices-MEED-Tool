@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body th:fragment="modals">
+<div class="modal fade" th:fragment="viewActivityFactSheet"  id="viewActivityFactSheetModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document" th:if="${activityFactSheet != null}">
+        <div class="modal-content p-5">
+            <div class="modal-header">
+                <h3 class="modal-title mt-3 mb-3" id="viewMMLFactSheetModalLabel" th:text="${activityFactSheet.getName() + ' fact sheet'}"></h3>
+                <button type="btn dropdown-toggle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-11">
+                        <img style="box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.4);" class="width100" th:src="${activityFactSheet.getName().contains('Dott/Voting/Ranking')} ? @{${'/img/activities/' + #strings.replace(activityFactSheet.getName(), '/','-') + '.png'}} : @{${'/img/activities/' + activityFactSheet.getName() + '.png'}}"/>
+                        <div class="row justify-content-end px-4">
+                            <a style="font-size: calc(10px + .3vw); margin-top: 2%;" href="https://pixabay.com/" target="_blank">Copyright <i class="far fa-copyright"></i> Pixabay</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Description</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 th:text="${activityFactSheet.getBriefDescription()}"></h6>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Objectives</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 style="white-space:pre-wrap;" th:text="${activityFactSheet.getObjective()}"></h6>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="col-3">
+                        <div class="row justify-content-center minHeightRow25">
+                            <h6 class="darkGreenText text-center" scope="row">Estimated planning time needed</h6>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section>
+                                <div th:classappend="${activityFactSheet.getPlanningTime().equals('0-1h')} ? 'circle30_wrap30' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-2h')} ? 'circle45_wrap45' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-5h')} or ${activityFactSheet.getPlanningTime().equals('2-4h')} ? 'circle90_wrap90' : 'circle135_wrap135'))">
+                                    <div th:classappend="${activityFactSheet.getPlanningTime().equals('0-1h')} ? 'circle30' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-2h')} ? 'circle45' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-5h')} or ${activityFactSheet.getPlanningTime().equals('2-4h')} ? 'circle90' : 'circle135'))">
+                                        <div th:classappend="${activityFactSheet.getPlanningTime().equals('0-1h')} ? 'mask30 full30' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-2h')} ? 'mask45 full45' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-5h')} or ${activityFactSheet.getPlanningTime().equals('2-4h')} ? 'mask90 full90' : 'mask135 full135'))">
+                                            <div th:classappend="${activityFactSheet.getPlanningTime().equals('0-1h')} ? 'fill30' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-2h')} ? 'fill45' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-5h')} or ${activityFactSheet.getPlanningTime().equals('2-4h')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${activityFactSheet.getPlanningTime().equals('0-1h')} ? 'mask30 half30' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-2h')} ? 'mask45 half45' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-5h')} or ${activityFactSheet.getPlanningTime().equals('2-4h')} ? 'mask90 half90' : 'mask135 half135'))">
+                                            <div th:classappend="${activityFactSheet.getPlanningTime().equals('0-1h')} ? 'fill30' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-2h')} ? 'fill45' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-5h')} or ${activityFactSheet.getPlanningTime().equals('2-4h')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${activityFactSheet.getPlanningTime().equals('0-1h')} ? 'inside-circle30' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-2h')} ? 'inside-circle45' :
+                                    (${activityFactSheet.getPlanningTime().equals('1-5h')} or ${activityFactSheet.getPlanningTime().equals('2-4h')} ? 'inside-circle90' : 'inside-circle135'))">
+                                            <i class="fas fa-business-time fa-3x circle-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row justify-content-center">
+                            <h6 th:text="${activityFactSheet.getPlanningTime()}"></h6>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row justify-content-center minHeightRow25">
+                            <h6 class="darkGreenText text-center" scope="row">Number of audience</h6>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section>
+                                <div th:classappend="${activityFactSheet.getNumberOfAudience().equals('<10')} ? 'circle30_wrap30' :
+                                    (${activityFactSheet.getNumberOfAudience().equals('10-40')} ? 'circle90_wrap90' : 'circle135_wrap135')">
+                                    <div th:classappend="${activityFactSheet.getNumberOfAudience().equals('<10')} ? 'circle30' :
+                                    (${activityFactSheet.getNumberOfAudience().equals('10-40')} ? 'circle90' : 'circle135')">
+                                        <div th:classappend="${activityFactSheet.getNumberOfAudience().equals('<10')} ? 'mask30 full30' :
+                                    (${activityFactSheet.getNumberOfAudience().equals('10-40')} ? 'mask90 full90' : 'mask135 full135')">
+                                            <div th:classappend="${activityFactSheet.getNumberOfAudience().equals('<10')} ? 'fill30' :
+                                    (${activityFactSheet.getNumberOfAudience().equals('10-40')} ? 'fill90' : 'fill135')"></div>
+                                        </div>
+                                        <div th:classappend="${activityFactSheet.getNumberOfAudience().equals('<10')} ? 'mask30 half30' :
+                                    (${activityFactSheet.getNumberOfAudience().equals('10-40')} ? 'mask90 half90' : 'mask135 half135')">
+                                            <div th:classappend="${activityFactSheet.getNumberOfAudience().equals('<10')} ? 'fill30' :
+                                            (${activityFactSheet.getNumberOfAudience().equals('10-40')} ? 'fill90' : 'fill135')"></div>
+                                        </div>
+                                        <div th:classappend="${activityFactSheet.getNumberOfAudience().equals('<10')} ? 'inside-circle30' :
+                                    (${activityFactSheet.getNumberOfAudience().equals('10-40')} ? 'inside-circle90' : 'inside-circle135')">
+                                            <i class="fas fa-users fa-3x circle-icon-no-margin-left"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row justify-content-center">
+                            <h6 class="text-center" th:text="${activityFactSheet.getNumberOfAudience()}"></h6>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row justify-content-center minHeightRow25">
+                            <h6 class="darkGreenText text-center" scope="row">Time estimated for implementation</h6>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section>
+                                <div th:classappend="${activityFactSheet.getTimeEstimated().contains('<15 min') or activityFactSheet.getTimeEstimated().equals('5-15 min') or activityFactSheet.getTimeEstimated().equals('<10 min')} ? 'circle30_wrap30' :
+                                    (${activityFactSheet.getTimeEstimated().equals('<20 min') or activityFactSheet.getTimeEstimated().equals('10-30 min')} ? 'circle45_wrap45' :
+                                    (${activityFactSheet.getTimeEstimated().equals('1-2h') or activityFactSheet.getTimeEstimated().equals('5-120 min') or activityFactSheet.getTimeEstimated().equals('30 min to 2h')} ? 'circle90_wrap90' : 'circle135_wrap135'))">
+                                    <div th:classappend="${activityFactSheet.getTimeEstimated().contains('<15 min') or activityFactSheet.getTimeEstimated().equals('5-15 min') or activityFactSheet.getTimeEstimated().equals('<10 min')} ? 'circle30' :
+                                    (${activityFactSheet.getTimeEstimated().equals('<20 min') or activityFactSheet.getTimeEstimated().equals('10-30 min')} ? 'circle45' :
+                                    (${activityFactSheet.getTimeEstimated().equals('1-2h') or activityFactSheet.getTimeEstimated().equals('5-120 min') or activityFactSheet.getTimeEstimated().equals('30 min to 2h')} ? 'circle90' : 'circle135'))">
+                                        <div th:classappend="${activityFactSheet.getTimeEstimated().contains('<15 min') or activityFactSheet.getTimeEstimated().equals('5-15 min') or activityFactSheet.getTimeEstimated().equals('<10 min')} ? 'mask30 full30' :
+                                    (${activityFactSheet.getTimeEstimated().equals('<20 min') or activityFactSheet.getTimeEstimated().equals('10-30 min')} ? 'mask45 full45' :
+                                    (${activityFactSheet.getTimeEstimated().equals('1-2h') or activityFactSheet.getTimeEstimated().equals('5-120 min') or activityFactSheet.getTimeEstimated().equals('30 min to 2h')} ? 'mask90 full90' : 'mask135 full135'))">
+                                            <div th:classappend="${activityFactSheet.getTimeEstimated().contains('<15 min') or activityFactSheet.getTimeEstimated().equals('5-15 min') or activityFactSheet.getTimeEstimated().equals('<10 min')} ? 'fill30' :
+                                    (${activityFactSheet.getTimeEstimated().equals('<20 min') or activityFactSheet.getTimeEstimated().equals('10-30 min')} ? 'fill45' :
+                                    (${activityFactSheet.getTimeEstimated().equals('1-2h') or activityFactSheet.getTimeEstimated().equals('5-120 min') or activityFactSheet.getTimeEstimated().equals('30 min to 2h')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${activityFactSheet.getTimeEstimated().contains('<15 min') or activityFactSheet.getTimeEstimated().equals('5-15 min') or activityFactSheet.getTimeEstimated().equals('<10 min')} ? 'mask30 half30' :
+                                    (${activityFactSheet.getTimeEstimated().equals('<20 min') or activityFactSheet.getTimeEstimated().equals('10-30 min')} ? 'mask45 half45' :
+                                    (${activityFactSheet.getTimeEstimated().equals('1-2h') or activityFactSheet.getTimeEstimated().equals('5-120 min') or activityFactSheet.getTimeEstimated().equals('30 min to 2h')} ? 'mask90 half90' : 'mask135 half135'))">
+                                            <div th:classappend="${activityFactSheet.getTimeEstimated().contains('<15 min') or activityFactSheet.getTimeEstimated().equals('5-15 min') or activityFactSheet.getTimeEstimated().equals('<10 min')} ? 'fill30' :
+                                    (${activityFactSheet.getTimeEstimated().equals('<20 min') or activityFactSheet.getTimeEstimated().equals('10-30 min')} ? 'fill45' :
+                                    (${activityFactSheet.getTimeEstimated().equals('1-2h') or activityFactSheet.getTimeEstimated().equals('5-120 min') or activityFactSheet.getTimeEstimated().equals('30 min to 2h')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${activityFactSheet.getTimeEstimated().contains('<15 min') or activityFactSheet.getTimeEstimated().equals('5-15 min') or activityFactSheet.getTimeEstimated().equals('<10 min')} ? 'inside-circle30' :
+                                    (${activityFactSheet.getTimeEstimated().equals('<20 min') or activityFactSheet.getTimeEstimated().equals('10-30 min')} ? 'inside-circle45' :
+                                    (${activityFactSheet.getTimeEstimated().equals('1-2h') or activityFactSheet.getTimeEstimated().equals('5-120 min') or activityFactSheet.getTimeEstimated().equals('30 min to 2h')} ? 'inside-circle90' : 'inside-circle135'))">
+                                            <i class="fas fa-user-clock fa-3x circle-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row justify-content-center">
+                            <h6 th:text="${activityFactSheet.getTimeEstimated()}"></h6>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row justify-content-center minHeightRow25">
+                            <h6 class="darkGreenText text-center" scope="row">Level of complexity and possible challenges</h6>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section>
+                                <div th:classappend="${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Low')} ? 'circle30_wrap30' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().equals('Medium')} ? 'circle45_wrap45' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Medium - High')} ? 'circle90_wrap90' : 'circle135_wrap135'))">
+                                    <div th:classappend="${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Low')} ? 'circle30' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().equals('Medium')} ? 'circle45' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Medium - High')} ? 'circle90' : 'circle135'))">
+                                        <div th:classappend="${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Low')} ? 'mask30 full30' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().equals('Medium')} ? 'mask45 full45' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Medium - High')} ? 'mask90 full90' : 'mask135 full135'))">
+                                            <div th:classappend="${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Low')} ? 'fill30' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().equals('Medium')} ? 'fill45' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Medium - High')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Low')} ? 'mask30 half30' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().equals('Medium')} ? 'mask45 half45' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Medium - High')} ? 'mask90 half90' : 'mask135 half135'))">
+                                            <div th:classappend="${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Low')} ? 'fill30' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().equals('Medium')} ? 'fill45' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Medium - High')} ? 'fill90' : 'fill135'))"></div>
+                                        </div>
+                                        <div th:classappend="${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Low')} ? 'inside-circle30' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().equals('Medium')} ? 'inside-circle45' :
+                                    (${activityFactSheet.getLevelOfComplexityAndPossibleChallenges().contains('Medium - High')} ? 'inside-circle90' : 'inside-circle135'))">
+                                            <i class="fas fa-mountain fa-3x circle-icon-no-margin-left"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row justify-content-center">
+                            <h6 class="text-center" th:text="${activityFactSheet.getLevelOfComplexityAndPossibleChallenges()}"></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end mt-5 pt-5">
+                    <button style="margin-bottom: 1rem;" class="btn share-open viewMoreActivityFactSheet">VIEW MORE</button>
+                </div>
+                <div class="row d-none viewMoreFactSheetRow">
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Methodology</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 style="white-space: pre-wrap;" th:text="${activityFactSheet.getMethodology()}"></h6>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Composition of audience</h6>
+                    </div>
+                    <div class="col-8">
+                        <h6 th:text="${activityFactSheet.getCompositionOfAudience()}"></h6>
+                    </div>
+                    <!--<div class="col-3">
+                        <h3 class="darkGreenText" scope="row">Experience level required</h3>
+                    </div>
+                    <div class="col-8">
+                        <h6 th:text="${activityFactSheet.getExperienceLevelRequired()}"></h6>
+                    </div>-->
+                    <div class="col-3">
+                        <h6 class="darkGreenText" scope="row">Relevant sources</h6>
+                    </div>
+                    <div class="col-8">
+                        <ul class="yourclass">
+                            <li th:each="source : ${activityFactSheet.getSources()}">
+                                <h6 style="padding-left: 30px;" th:if="${source.getTitle() != null}" th:text="${source.getTitle()}"></h6>
+                                <a style="font-size: calc(10px + .3vw); padding-left: 30px;" th:href="${source.getUrl()}" target="_blank" th:if="${source.getUrl() != null}" th:text="${source.getUrl()}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

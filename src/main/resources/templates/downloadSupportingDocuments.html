@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><link rel="icon" th:href="@{/img/logoTool.png}"/>
+    <title>Download supporting documents</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/brands.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/popper.js/1.15.0/dist/umd/popper.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js/}"></script>
+    <script th:src="@{/linkify/linkify.min.js}"></script>
+    <script th:src="@{/linkify/linkify-jquery.min.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-hashtag.amd.min.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-mention.amd.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-ticket.amd.js}"></script>
+    <script th:src="@{/linkify/linkify-polyfill.min.js}"></script>
+    <link th:href="@{/css/rating/css/star-rating.css}" media="all" rel="stylesheet" type="text/css"/>
+    <script th:href="@{/css/rating/js/star-rating.js}" type="text/javascript"></script>
+    <link type="text/css" th:href="@{/scss_compiled/timeline.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/scss_compiled/questionnaire.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+
+<div th:include="navbar :: header">&nbsp;</div>
+<div class="parallax-container ">
+    <div></div>
+    <div></div>
+</div>
+
+<main role="main">
+    <div th:include="/modals/factsheetModal :: modals">&nbsp;</div>
+    <div th:include="/modals/activitiesModal :: modals">&nbsp;</div>
+    <div class="container-fluid platform__leaves py-5">
+        <div class="row">
+            <div class="col-2">
+                <h3 class="tool-steps-title text-right" >Choices you made</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">BIOVOICES Challenge Cluster</h5>
+                        <h5 th:text="${biovoicesChallengeCluster}"></h5>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary">
+                        <h5 class="darkGreenText">Group composition: </h5>
+                        <h5 th:each="groupComposition : ${groupCompositionViewGlobal}" th:text="${groupComposition}"></h5>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">Group size </h5>
+                        <h5 th:text="${groupSizeGlobal}"></h5>
+                    </li>
+                </ul>
+                <ul class="list-group mt-2">
+                    <li class="list-group-item list-group-item-green">
+                        <h5>MML and knowledge exchange event</h5>
+                        <h5 th:text="${mmlNameGlobal}"></h5>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">Goal </h5>
+                        <h5 th:text="${biovoicesGoalGlobalSettingScene}"></h5>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary">
+                        <h5 class="darkGreenText">Participants' experience level </h5>
+                        <h5 th:text="${biovoicesParticipantExperienceLevelGlobalSettingScene}"></h5>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">Session format </h5>
+                        <h5 th:text="${biovoicesSessionFormatGlobalSettingScene}"></h5>
+                    </li>
+                    <li class="list-group-item list-group-item-green">
+                        <h5>Activities </h5>
+                        <th:block th:each="activity : ${chosenActivities}">
+                            <h5 th:text="${activity}"></h5>
+                        </th:block>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-8 intro-wrapper">
+                <h2 class="my-5 text-center">Review and download</h2>
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="row p-4 justify-content-center">
+                            <div class="col-xl-12">
+                                <div class="row">
+                                    <div class="wrapper">
+                                        <div class="timelineBox">
+                                            <div class="timelineHeader">
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <h2 style="color: #FFFFFF;-webkit-text-fill-color: #FFFFFF;">Summary</h2>
+                                                        <span style="font-size: 20px; color: #d6d8db;">CHOSEN MML & ACTIVITIES</span>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a th:href="@{/downloadAgenda}" class="download-btn btn share-open btn-lg width100 mb-3">DOWNLOAD AGENDA</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-11 pr-0">
+                                                    <div class="timelineBody ml-4 pt-3">
+                                                        <h3 class="darkGreenText">MML and knowledge exchange event FORMAT</h3>
+                                                        <ul class="timeline">
+                                                            <li>
+                                                                <div class="timelineDot"></div>
+                                                                <div class="timelineDate" th:text="${mmlNameGlobal}"></div>
+                                                                <div class="timelineWork text-right">
+                                                                    <button th:id="${mmlNameGlobal}" style="margin-bottom: 1rem;" class="btn share-open viewFactSheetSummary ml-3">FACTSHEET</button>
+                                                                    <a th:href="@{${'/factsheets/'+ mmlNameGlobal +'.pdf'}}" target="_blank" class="btn share-open ml-3" style="margin-bottom: 1rem;text-decoration: none;">DOWNLOAD FACTSHEET</a>
+                                                                    <a th:href="@{${'/methodologyDocs/'+ mmlNameGlobal +'.pdf'}}" target="_blank" class="btn share-open mb-3">DOWNLOAD METHODOLOGY</a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                        <h3 class="darkGreenText mt-4">ACTIVITIES</h3>
+                                                        <ul class="timeline">
+                                                            <li th:each="activity : ${chosenActivities}" >
+                                                                <div class="timelineDot"></div>
+                                                                <div class="timelineDate" th:text="${activity}"></div>
+                                                                <div class="timelineWork text-right">
+                                                                    <button th:id="${activity}" style="margin-bottom: 1rem;" class="btn share-open viewActivityFactSheetSummary">FACTSHEET</button>
+                                                                    <a th:href="@{${'/factsheets/'+ #strings.replace(activity, '/', '-') +'.pdf'}}" target="_blank" class="btn share-open ml-3" style="margin-bottom: 1rem;text-decoration: none;">DOWNLOAD FACTSHEET</a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-5 mb-3">
+                    <a class="btn share-open btn-lg" th:href="@{/customizeAgendaWrapUp}">BACK</a>
+                </div>
+            </div>
+            <div class="col-2">
+                <h3 class="tool-steps-title" >Tool steps</h3>
+                <ul class="list-group">
+                    <li class="list-group-item"><h5>1. Select a suitable event format</h5></li>
+                    <li class="list-group-item"><h5>2. Select the right activities</h5></li>
+                    <li class="list-group-item"><h5>3. Customize the agenda</h5></li>
+                    <li class="list-group-item list-group-item-success"><h5>4. Download supporting documents</h5></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript" th:src="@{/css/scripts.js}"></script>
+<script>
+</script>
+</body>
+</html>

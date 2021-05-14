@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><link rel="icon" th:href="@{/img/logoTool.png}"/>
+    <title>Show events formats</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/brands.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/popper.js/1.15.0/dist/umd/popper.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+    <link th:href="@{/css/rating/css/star-rating.css}" media="all" rel="stylesheet" type="text/css"/>
+    <script th:href="@{/css/rating/js/star-rating.js}" type="text/javascript"></script>
+    <link type="text/css" th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/scss_compiled/questionnaire.css}" rel="stylesheet" media="screen"/>
+    <link type="text/css" th:href="@{/scss_compiled/bar_graph.css}" rel="stylesheet" media="screen"/>
+    <script th:src="@{/linkify/linkify.min.js}"></script>
+    <script th:src="@{/linkify/linkify-jquery.min.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-hashtag.amd.min.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-mention.amd.js}"></script>
+    <script th:src="@{/linkify/linkify-plugin-ticket.amd.js}"></script>
+    <script th:src="@{/linkify/linkify-polyfill.min.js}"></script>
+</head>
+<body>
+<div th:include="navbar :: header">&nbsp;</div>
+<div class="parallax-container ">
+    <div></div>
+    <div></div>
+</div>
+<main role="main">
+    <div th:include="/modals/factsheetModal :: modals">&nbsp;</div>
+    <div class="container-fluid platform__leaves py-5">
+        <div class="row">
+            <div class="col-xl-3 col-2">
+                <h3 class="tool-steps-title text-right">Tool steps</h3>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success"><h5>1. Select a suitable event format</h5></li>
+                    <li class="list-group-item"><h5>2. Select the right activities</h5></li>
+                    <li class="list-group-item"><h5>3. Customize the agenda</h5></li>
+                    <li class="list-group-item"><h5>4. Download supporting documents</h5></li>
+                </ul>
+                <h3 class="tool-steps-title text-right">Choices you made</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">BIOVOICES Challenge Cluster</h5>
+                        <h5 th:text="${biovoicesChallengeCluster}"></h5>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary">
+                        <h5 class="darkGreenText">Group composition </h5>
+                        <h5 th:each="groupComposition : ${groupCompositionViewGlobal}" th:text="${groupComposition}"></h5>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="darkGreenText">Group size </h5>
+                        <h5 th:text="${groupSizeGlobal}"></h5>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xl-6 col-8">
+                <div class="row justify-content-center">
+                    <th:block th:if="${!emptyListMessage.isEmpty()}">
+                        <div class="demo">
+                            <div class="demo__content">
+                                <h2 class="demo__heading">The best MML and knowledge exchange event format suggested are</h2>
+                                <div class="demo__elems">
+                                    <div class="demo__elem demo__elem-1" style="height: 100%; font-size: 1.6rem; line-height: 2.5rem; padding-top: 5%;">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <p th:text="${emptyListMessage}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="demo__examples">
+                                        <div class="demo__examples-nb">
+                                            <div class="nb-inner">
+                                                <div class="example example-adv">
+                                                    <img th:src="@{/img/1MMLchoice.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${emptyListMessage.isEmpty()}">
+                        <div class="demo">
+                            <div class="demo__content">
+                                <h2 class="demo__heading">We suggest the following formats based on your parameters</h2>
+                                <div class="demo__elems">
+                                    <th:block th:each="result, iter : ${results}">
+                                        <div class="demo__elem" th:classappend="${iter.index > 2} ? 'demo_' + '_elem-' + ${iter.index + 1} + ' d-none' : 'demo_'+'_elem-'+ ${iter.index + 1}">
+                                            <div class="row">
+                                                <div class="col-1 align-self-center pb-2 p-0">
+                                                    <div class="row justify-content-center my-1">
+                                                        <i th:classappend="${result.getMediumScore() < 1.5} ? red : grey" class="fa fa-circle"></i>
+                                                    </div>
+                                                    <div class="row justify-content-center my-1">
+                                                        <i th:classappend="${result.getMediumScore()>=1.5 && result.getMediumScore() < 2.5} ? yellow : grey" class="fa fa-circle"></i>
+                                                    </div>
+                                                    <div class="row justify-content-center my-1">
+                                                        <i th:classappend="${result.getMediumScore()>=2.5} ? green : grey" class="fa fa-circle"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7 p-0">
+                                                    <!-- <p class="mmlToShow"></p>-->
+
+                                                    <p>
+                                                        <span class="mmlToShow"><a class="chooseFactSheet" th:text="${result.getyAxis()}"></a></span>
+                                                        <i th:if="${iter.index <= 2}" class="far fa-thumbs-up"></i>
+                                                    </p>
+                                                </div>
+                                                <div class="col-1 align-self-center p-0">
+                                                    <p class="mediumScore d-none" th:text="${result.getMediumScore()}"></p>
+                                                </div>
+                                                <div class="col-2 ml-2 p-0 d-flex align-items-center">
+                                                    <div>
+                                                        <div class="row">
+                                                            <button th:id="${result.getyAxis()}" style="margin-bottom: 1rem;" class="btn share-open viewFactSheet">FACTSHEET</button>
+                                                        </div>
+                                                        <!-- <div class="row">
+                                                           <button th:id="${result.getyAxis()}" style="margin-bottom: 1rem;" class="btn btn-outline-primary chooseFactSheet">CHOOSE</button>
+                                                        </div>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                    <div class="demo__examples">
+                                        <div class="demo__examples-nb">
+                                            <div class="nb-inner">
+                                                <div class="example example-adv text-center">
+                                                    <img th:src="@{/img/1MMLchoice.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center m-0">
+                                    <button style="margin-bottom: 1rem;" class="btn share-open viewAllSuggestionsButton">VIEW ALL SUGGESTIONS</button>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+                <div class="row justify-content-center mt-5 mb-3">
+                    <a class="btn share-open btn-lg" th:href="@{/chooseGroupSize}">BACK</a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-2">
+                <div class="row m-0 mt-5" style="width:100%; background-color:#fff; border-radius: 20px; box-shadow: 0 0.5rem 5rem rgba(0, 0, 0, 0.4);">
+                    <div class="col-12 p-0">
+                        <div class="demo__highlighter" style="border-radius: 20px 20px 0px 0px; position: relative; width: 100%; left:0; color:#FFFFFF;font-size: 3rem;height: 100%;">
+                            <h5 class="my-4 pl-3">Info</h5>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>The traffic lights indicate the suitability of the event or activity to meet the parameters introduced.</h5>
+                            </div>
+                            <div class="col-2 align-self-center pb-2 p-0">
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle grey"></i>
+                                </div>
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle grey"></i>
+                                </div>
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle green"></i>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <h5>Green light indicates maximum suitability</h5>
+                            </div>
+                            <div class="col-2 align-self-center pb-2 p-0">
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle grey"></i>
+                                </div>
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle yellow"></i>
+                                </div>
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle grey"></i>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <h5>Yellow light indicates medium suitability</h5>
+                            </div>
+                            <div class="col-2 align-self-center pb-2 p-0">
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle red"></i>
+                                </div>
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle grey"></i>
+                                </div>
+                                <div class="row justify-content-center my-1">
+                                    <i class="fa fa-circle grey"></i>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <h5>Red light indicates minimum suitability</h5>
+                            </div>
+                            <div class="col-12">
+                                <h5>Additionally, each format or activity presents a rating, ranging from zero to three, where those values closer to three indicate maximum suitability.
+                                    This rating system  is part of the analysis conducted as part of Deliverable 4.4 BIOVOICES methodological approach for Mobilization and Mutual Learning (MML). For more information, please check  <a style="white-space: pre-wrap" target="_blank" href="https://www.biovoices.eu/download.php?f=111&l=en&key=53491c2ff4014310b65cc09d617fcc34">here</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<script type="text/javascript" th:src="@{/css/scripts.js}"></script>
+<script>
+</script>
+</body>
+</html>
