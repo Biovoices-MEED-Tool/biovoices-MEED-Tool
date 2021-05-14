@@ -1,16 +1,23 @@
-### Hi there 👋
+Note about the contribution:
 
-<!--
-**Biovoices-MEED-Tool/biovoices-MEED-Tool** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+ICLEI provided the users’ requirements, developed concept and provided factsheets.
 
-Here are some ideas to get you started:
+ICLEI and CNR provided the design and testing of the MEED tool and LOBA 
+provided images used for the layout.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+CNR implemented and manages the MEED tool.
+
+People involved:
+
+Noemi Biancone (CNR), Chiara Bicchielli (CNR), developed the code of the 
+tool and contributed in the design and testing activities.
+
+Noemi Biancone (CNR) manages the tool.
+
+Fernando Ferri (CNR), Patrizia Grifoni (CNR), contributed in the design 
+and testing activities and in managing the tool.
+
+Nikolaj Jacobi (ICLEI), Veronica Rebollo (ICLEI), Giorgia Rambelli 
+(ICLEI), Nicola Iezza (ICLEI), Roman Mendle (ICLEI) developed concept, provided factsheet and provided the users’ requirements and contributed in the design and testing of the MEED tool.
+
+Pietro Rigonat (LOBA) provided the images used for the layout.
