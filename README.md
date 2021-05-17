@@ -21,3 +21,5 @@ Nikolaj Jacobi (ICLEI), Veronica Rebollo (ICLEI), Giorgia Rambelli
 (ICLEI), Nicola Iezza (ICLEI), Roman Mendle (ICLEI) developed concept, provided factsheet and provided the users’ requirements and contributed in the design and testing of the MEED tool.
 
 Pietro Rigonat (LOBA) provided the images used for the layout.
+
+The BIOVOICES MEED tool was delevoped within the BIOVOICES H2020 project funded by the H2020 Framework Programme, grant number 774331.
